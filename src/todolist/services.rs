@@ -65,5 +65,6 @@ async fn delete_entry(data: web::Data<AppState>, path: web::Path<i32>) -> impl R
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(get_entries)
         .service(create_entry)
-        .service(update_entry);
+        .service(update_entry)
+        .service(delete_entry);
 }

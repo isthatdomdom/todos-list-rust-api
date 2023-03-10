@@ -1,6 +1,6 @@
 use super::models::{CreateEntryData, UpdateEntryData};
 use crate::{AppState, TodolistEntry};
-use actix_web::{delete, get, post, put, web, App, HttpResponse, Responder};
+use actix_web::{delete, get, post, put, web, HttpResponse, Responder};
 
 #[get("/todolist/entries")]
 async fn get_entries(data: web::Data<AppState>) -> impl Responder {
@@ -38,10 +38,10 @@ async fn update_entry(
 ) -> impl Responder {
     let id = path.into_inner();
     let mut todolist_entries = data.todolist_entries.lock().unwrap();
-
-    for i in 0..todolist_entries {
+    for i in 0..todolist_entries.len() {
         if todolist_entries[i].id == id {
-            todolist_entries[i].title = param_obj.title.clone()
+            todolist_entries[i].title = param_obj.title.clone();
+            break;
         }
     }
 
